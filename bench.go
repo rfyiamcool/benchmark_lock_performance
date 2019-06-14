@@ -65,25 +65,19 @@ func main() {
 	flag.Parse()
 	var locker handler
 
-	fmt.Println("spinlock")
+	fmt.Printf("spinlock \n")
 	locker = &spinLock{
 		sched: false,
 	}
 	execute(locker)
 
-	fmt.Println("spinlock sched")
+	fmt.Printf("\nspinlock sched \n")
 	locker = &spinLock{
 		sched: true,
 	}
 	execute(locker)
 
-	fmt.Println("mutex")
+	fmt.Printf("\nmutex \n")
 	locker = &locked{}
 	execute(locker)
 }
-
-// mutex
-// signal call = 50ns
-// 4core = 110ns, cpu top 300%
-// 8core = 260ns, cpu top 300%
-// 48 core = 530ns, cpu top 400%

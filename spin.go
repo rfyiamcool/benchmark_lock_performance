@@ -30,10 +30,7 @@ func (sl *spinLock) tryLock() bool {
 }
 
 func (sl *spinLock) add() {
-	for !sl.tryLock() {
-		runtime.Gosched()
-	}
-
+	sl.lock()
 	sl.i++
 	sl.unlock()
 }
