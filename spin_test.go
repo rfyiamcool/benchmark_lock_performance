@@ -27,3 +27,27 @@ func BenchmarkSpinSchedAdd(t *testing.B) {
 		t.Errorf("Expected %d, but got %d", t.N, c.i)
 	}
 }
+
+func BenchmarkParalletSpinAdd(b *testing.B) {
+	c := spinLock{
+		sched: false,
+	}
+	b.SetParallelism(200)
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			c.add()
+		}
+	})
+}
+
+func BenchmarkParalletSpinSchedAdd(b *testing.B) {
+	c := spinLock{
+		sched: true,
+	}
+	b.SetParallelism(200)
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			c.add()
+		}
+	})
+}
