@@ -23,7 +23,7 @@ func BenchmarkLockedAdd(t *testing.B) {
 	}
 }
 
-func BenchmarkParalletAdd(b *testing.B) {
+func BenchmarkParalletLockedAdd(b *testing.B) {
 	c := locked{}
 	b.SetParallelism(100)
 	b.RunParallel(func(pb *testing.PB) {

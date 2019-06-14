@@ -11,13 +11,13 @@ benchmark golang mutex & spinlock & spinlock sched perforemance
 
 ### custom test
 
-**cmd**
+cmd
 
 ```
 go build; ./benchmark_lock_performance  -max=false
 ```
 
-**performance stdout:**
+performance stdout:
 
 ```
 spinlock
@@ -38,13 +38,13 @@ go build; ./benchmark_lock_performance  -max=true
 
 ### test std bench
 
-**cmd**
+cmd
 
 ```
 go test -v -bench . -count=1 -benchmem
 ```
 
-**performance stdout:**
+performance stdout:
 
 ```
 goos: linux
