@@ -16,6 +16,18 @@ func BenchmarkSpinAdd(t *testing.B) {
 	}
 }
 
+func BenchmarkParalletSpinAdd(b *testing.B) {
+	c := spinLock{
+		sched: false,
+	}
+	b.SetParallelism(50)
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			c.add()
+		}
+	})
+}
+
 func BenchmarkSpinSchedAdd(t *testing.B) {
 	c := spinLock{
 		sched: true,
@@ -28,23 +40,11 @@ func BenchmarkSpinSchedAdd(t *testing.B) {
 	}
 }
 
-func BenchmarkParalletSpinAdd(b *testing.B) {
-	c := spinLock{
-		sched: false,
-	}
-	b.SetParallelism(200)
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			c.add()
-		}
-	})
-}
-
 func BenchmarkParalletSpinSchedAdd(b *testing.B) {
 	c := spinLock{
 		sched: true,
 	}
-	b.SetParallelism(200)
+	b.SetParallelism(50)
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			c.add()
